@@ -13,10 +13,11 @@ how you got there.
 
 ### Keybinds
 
-| Keybind | What it does |
-| - | - |
-| `<leader>ms` | Starts/Stops recording the map |
-| `<leader>me` | Shows the map explorer |
+| Builtin | Keybind | What it does |
+| - | - | - |
+| BMToggle | `<leader>ms` | Starts/Stops recording the map |
+| BMExplorer | `<leader>me` | Shows the text map explorer |
+| BMMap | `<leader>mc` | Shows the ASCII map |
 
 ### Map Recording
 
@@ -80,8 +81,14 @@ nodes.set('path/to/file/e', []);
 This could be rendered like so
 
 ```
-┌ ─ ─ ─ ─ ┐
-▷ ─ ▪ ─ ▪ ┘
-└ ─ ▣
+    ┌ ─ ─ ─ ─ ┐
+▷ ┬ ▪ ─ ▪ ─ ▪ ┘
+  └ ▣
+```
+
+```
+    ┌ ← ← ← ← ┐
+▷ ┬ ▪ → ▪ → ▪ ┘
+  └ ▣
 ```
 
