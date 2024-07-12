@@ -1,5 +1,19 @@
 # Bring a Map
 
+## Status
+
+This is still a work in progress. Here's a list of goals and their status:
+
+- [x] Figure out how to add user commands
+- [x] Determine data structure for recording map
+- [x] Figure out how to show and hide a window with buffer using a command
+- [x] Get basic map rendering in place, ignoring loops and multiple children
+- [ ] Determine a way to render a map with loops and multiple starting points
+- [ ] Implement the map rendering
+- [ ] Figure out cursor navigation in the map window
+- [ ] Add commands to navigate to files in the map
+- [ ] Figure out what else is needed and add to this list
+
 ## The purpose
 
 Being new to Neovim, I sometimes lose track of where I am or how I got there.
@@ -13,7 +27,7 @@ how you got there.
 
 ### Keybinds
 
-| Builtin | Keybind | What it does |
+| Command | Keybind | What it does |
 | - | - | - |
 | BMToggle | `<leader>ms` | Starts/Stops recording the map |
 | BMMap | `<leader>me` | Shows/Hides the ASCII map |
@@ -46,7 +60,7 @@ structure.
     "nodes": {
         "<root>": {
             "filename": "<root>",
-            children": [ "<hash a>" ]
+            "children": [ "<hash a>" ]
         },
         "<hash a>": {
             "filename": "/path/to/file/a",
@@ -85,7 +99,7 @@ This could be rendered like so
     "nodes": {
         "<root>": {
             "filename": "<root>",
-            children": [ "<hash a>" ]
+            "children": [ "<hash a>" ]
         },
         "<hash a>": {
             "filename": "/path/to/file/a",
