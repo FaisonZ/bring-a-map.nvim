@@ -8,6 +8,7 @@ This is still a work in progress. Here's a list of goals and their status:
 - [x] Determine data structure for recording map
 - [x] Figure out how to show and hide a window with buffer using a command
 - [x] Get basic map rendering in place, ignoring loops and multiple children
+- [ ] Close map when last window is closed
 - [ ] Determine a way to render a map with loops and multiple starting points
 - [ ] Implement the map rendering
 - [ ] Figure out cursor navigation in the map window
