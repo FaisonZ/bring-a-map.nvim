@@ -16,8 +16,7 @@ how you got there.
 | Builtin | Keybind | What it does |
 | - | - | - |
 | BMToggle | `<leader>ms` | Starts/Stops recording the map |
-| BMExplorer | `<leader>me` | Shows the text map explorer |
-| BMMap | `<leader>mc` | Shows the ASCII map |
+| BMMap | `<leader>me` | Shows/Hides the ASCII map |
 
 ### Map Recording
 
@@ -42,40 +41,70 @@ structure.
 
 ##### Graph without a loop
 
-```js
-const nodes = Map();
-nodes.set('/path/to/file/a', [
-    '/path/to/file/b',
-]);
-nodes.set('/path/to/file/b', [
-    '/path/to/file/in/dir1/c',
-]);
-nodes.set('/path/to/file/in/dir1/c', [
-    '/path/to/file/in/dir2/d',
-]);
-nodes.set('/path/to/file/in/dir2/d', []);
+```json
+{
+    "nodes": {
+        "<root>": {
+            "filename": "<root>",
+            children": [ "<hash a>" ]
+        },
+        "<hash a>": {
+            "filename": "/path/to/file/a",
+            "children": [ "<hash b>" ]
+        },
+        "<hash b>": {
+            "filename": "/path/to/file/b",
+            "children": [ "<hash c>" ]
+        },
+        "<hash c>": {
+            "filename": "/path/to/file/in/dir1/c",
+            "children": [ "<hash d>" ]
+        },
+        "<hash d>": {
+            "filename": "/path/to/file/in/dir1/d",
+            "children": []
+        }
+    }
+}
 ```
 
 This could be rendered like so
 
 ```
-▷ ─ ▪ ─ ▪ ─ ▣
+▷ ─ ▪ ─ ▪ ─ ▪ ─ ▣
+```
+
+```
+▷ → ▪ → ▪ → ▪ → ▣
 ```
 
 ##### Graph with a loop
 
-```js
-const nodes = Map();
-nodes.set('/path/to/file/a', [
-    '/path/to/file/b', 'path/to/file/e',
-]);
-nodes.set('/path/to/file/b', [
-    '/path/to/file/that/loops/a',
-]);
-nodes.set('/path/to/file/that/loops/a', [
-    '/path/to/file/a',
-]);
-nodes.set('path/to/file/e', []);
+```json
+{
+    "nodes": {
+        "<root>": {
+            "filename": "<root>",
+            children": [ "<hash a>" ]
+        },
+        "<hash a>": {
+            "filename": "/path/to/file/a",
+            "children": [ "<hash b>", "<hash d>" ]
+        },
+        "<hash b>": {
+            "filename": "/path/to/file/b",
+            "children": [ "<hash c>" ]
+        },
+        "<hash c>": {
+            "filename": "/path/to/file/that/loops/c",
+            "children": [ "<hash a>" ]
+        },
+        "<hash d>": {
+            "filename": "/path/to/file/d",
+            "children": []
+        }
+    }
+}
 ```
 
 This could be rendered like so
