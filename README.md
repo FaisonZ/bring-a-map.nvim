@@ -28,10 +28,11 @@ how you got there.
 
 ### Keybinds
 
-| Command | Keybind | What it does |
+| Command | Suggested Keybind | What it does |
 | - | - | - |
 | BMToggle | `<leader>ms` | Starts/Stops recording the map |
 | BMMap | `<leader>me` | Shows/Hides the ASCII map |
+| BMReset | `<leader>mr` | Clears the recorded map |
 
 ### Map Recording
 

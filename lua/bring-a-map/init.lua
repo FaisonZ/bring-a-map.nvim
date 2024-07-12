@@ -122,6 +122,16 @@ end
 
 local recording = false
 
+local function update_statusline()
+    local status = "Bring a Map"
+
+    if recording then
+        status = status .. " -- mapping"
+    end
+
+    vim.api.nvim_set_option_value("statusline",status, { win = win })
+end
+
 function M.toggle_recording()
     -- BufEnter
     if not recording then
@@ -133,6 +143,8 @@ function M.toggle_recording()
         recording = false
         prevFile = "<root>"
     end
+
+    update_statusline()
 end
 
 function M.toggle_map()
@@ -152,9 +164,24 @@ function M.toggle_map()
     vim.api.nvim_set_option_value("number", false, { win = win })
     vim.api.nvim_set_option_value("relativenumber", false, { win = win })
     vim.api.nvim_set_option_value("colorcolumn", "", { win = win })
-    vim.api.nvim_set_option_value("statusline", "Bring a Map", { win = win })
+    update_statusline()
 
     vim.api.nvim_win_set_height(win, line_nums)
+end
+
+function M.reset_map()
+    prevFile = "<root>"
+    data.nodes = {
+        _root = {
+            filename = "<root>",
+            children = {}
+        }
+    }
+    if recording then
+        M.record_file()
+    else
+        update_map()
+    end
 end
 
 function M.setup()
@@ -162,8 +189,10 @@ function M.setup()
         group = BMGroup,
         pattern = "*",
         callback = function(ev)
-            if recording == false or ev.file == "" or prevFile == ev.file then
+            if ev.file == "" or prevFile == ev.file then
                 return
+            elseif recording == false then
+                update_map()
             end
 
             add_file(ev.file, prevFile)
@@ -173,6 +202,7 @@ function M.setup()
     vim.api.nvim_create_user_command('BMPrint', M.print, {})
     vim.api.nvim_create_user_command('BMToggle', M.toggle_recording, {})
     vim.api.nvim_create_user_command('BMMap', M.toggle_map, {})
+    vim.api.nvim_create_user_command('BMReset', M.reset_map, {})
 end
 
 return M
